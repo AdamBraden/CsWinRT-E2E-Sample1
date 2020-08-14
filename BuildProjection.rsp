@@ -1,0 +1,14 @@
+# This sample demonstrates using a response file for cswinrt execution.
+# Run "cswinrt -h" to see all command line options.
+# for csproj integration see: https://github.com/microsoft/CsWinRT/blob/master/Projections/Test/Test.csproj
+-verbose
+# Include Windows SDK metadata to satisfy references to Windows types from project-specific metadata.
+-in 10.0.18362.0
+# Don't project referenced Windows types, as these are provided by the Windows interop assembly.
+-exclude Windows 
+# Reference project-specific winmd files, defined elsewhere, such as from a NuGet package.
+-in .\x64\Release\SimpleMathCppWinRT\SimpleMathCppWinRT.winmd
+# Include project-specific namespaces/types in the projection
+-include SimpleMathCppWinRT
+# Write projection sources to the "SimpleMathProjection" folder, which should be excluded from checkin (e.g., .gitignored).
+-out ".\SimpleMathProjection"

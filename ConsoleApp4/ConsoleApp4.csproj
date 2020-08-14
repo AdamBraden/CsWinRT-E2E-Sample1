@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\x64\Release\SimpleMathCppWinRT\SimpleMathCppWinRT.dll" Link="SimpleMathCppWinRT.dll" />
+    <None Include="..\x64\Release\SimpleMathCppWinRT\SimpleMathCppWinRT.pdb" Link="SimpleMathCppWinRT.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.NET" Version="10.0.18362.3-preview" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\SimpleMathCppWinRT\SimpleMathCppWinRT.vcxproj" />-->
+    <ProjectReference Include="..\SimpleMathProjection\SimpleMathProjection.csproj" />
+  </ItemGroup>
+
+</Project>

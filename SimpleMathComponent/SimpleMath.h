@@ -12,7 +12,7 @@
 
 #include "SimpleMath.g.h"
 
-namespace winrt::SimpleMathCppWinRT::implementation
+namespace winrt::SimpleMathComponent::implementation
 {
     struct SimpleMath: SimpleMathT<SimpleMath>
     {
@@ -24,7 +24,7 @@ namespace winrt::SimpleMathCppWinRT::implementation
     };
 }
 
-namespace winrt::SimpleMathCppWinRT::factory_implementation
+namespace winrt::SimpleMathComponent::factory_implementation
 {
     struct SimpleMath: SimpleMathT<SimpleMath, implementation::SimpleMath>
     {

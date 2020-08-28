@@ -2,7 +2,7 @@
 #include "SimpleMath.h"
 #include "SimpleMath.g.cpp"
 
-namespace winrt::SimpleMathCppWinRT::implementation
+namespace winrt::SimpleMathComponent::implementation
 {
 	//SimpleMath::SimpleMath()
 	//{

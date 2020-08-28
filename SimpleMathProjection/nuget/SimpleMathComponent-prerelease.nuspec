@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SimpleMathComponent</id>
+    <version>0.1.2-prerelease</version>
+    <authors>Contoso Math Inc.</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <!--<dependency id="SimpleMathComponent" version="1.0.0" exclude="Build,Analyzers" />-->
+        <dependency id="Microsoft.Windows.CsWinRT" version="0.1.0-prerelease.200811.1" exclude="Build,Analyzers" />
+        <!--<dependency id="Microsoft.Windows.SDK.NET" version="10.0.18362.7-preview" exclude="Build,Analyzers" />-->
+      </group>
+      <group targetFramework="netcoreapp3.0">
+        <!--<dependency id="Microsoft.Windows.SDK.Contracts" version="10.0.18362.2005" exclude="Build,Analyzers" />-->
+      </group>
+
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\repos\CsWinRT-E2E-Sample1\x64\Debug\SimpleMathComponent\SimpleMathComponent.winmd" target="lib\netcoreapp3.0\SimpleMathComponent.winmd" />
+    <file src="D:\repos\CsWinRT-E2E-Sample1\SimpleMathProjection\bin\x64\Debug\net5.0\SimpleMathProjection.dll" target="lib\net5.0\SimpleMathProjection.dll" />
+    <file src="D:\repos\CsWinRT-E2E-Sample1\x64\Debug\SimpleMathComponent\SimpleMathComponent.dll" target="runtimes\win10-x64\native\SimpleMathComponent.dll" />
+    <!--<file src="D:\repos\CsWinRT-E2E-Sample1\x64\Debug\SimpleMathComponent\SimpleMathComponent.dll" target="runtimes\win10-x64\lib\netcoreapp3.0\SimpleMathComponent.dll" />
+    <file src="D:\repos\CsWinRT-E2E-Sample1\x64\Debug\SimpleMathComponent\SimpleMathComponent.dll" target="runtimes\win10-x64\lib\net5.0\SimpleMathComponent.dll" />-->
+  </files>
+</package>

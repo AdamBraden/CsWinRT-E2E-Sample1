@@ -6,10 +6,10 @@ namespace ConsoleApp4
     {
         static void Main(string[] args)
         {
-            WinRT.ComWrappersSupport.InitializeComWrappers();
             Console.WriteLine("Hello World!");
-            var x = new SimpleMathCppWinRT.SimpleMath();
-
+            
+            var x = new SimpleMathComponent.SimpleMath();
+            Console.WriteLine(x.add(5.5, 6.5).ToString());
         }
     }
 }

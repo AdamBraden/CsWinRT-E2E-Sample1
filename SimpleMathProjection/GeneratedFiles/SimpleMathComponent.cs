@@ -15,10 +15,10 @@ using WinRT.Interop;
 #pragma warning disable 0169 // warning CS0169: The field '...' is never used
 #pragma warning disable 0649 // warning CS0169: Field '...' is never assigned to
 
-namespace SimpleMathCppWinRT
+namespace SimpleMathComponent
 {
     [global::WinRT.WindowsRuntimeType]
-    [Guid("6FBA6899-B86F-5F62-9CAF-073458D58EEB")]
+    [Guid("C5294299-09C8-5F7F-9FAE-46993031C242")]
     [Windows.Foundation.Metadata.ExclusiveTo(typeof(SimpleMath))]
     [Windows.Foundation.Metadata.Version(1u)]
     internal interface ISimpleMath
@@ -39,12 +39,12 @@ namespace SimpleMathCppWinRT
         public IntPtr ThisPtr => _default.ThisPtr;
 
         private IObjectReference _inner = null;
-        private readonly Lazy<global::ABI.SimpleMathCppWinRT.ISimpleMath> _defaultLazy;
+        private readonly Lazy<global::ABI.SimpleMathComponent.ISimpleMath> _defaultLazy;
         private readonly Dictionary<Type, object> _lazyInterfaces;
 
-        private global::ABI.SimpleMathCppWinRT.ISimpleMath _default => _defaultLazy.Value;
+        private global::ABI.SimpleMathComponent.ISimpleMath _default => _defaultLazy.Value;
 
-        public SimpleMath() : this(new global::ABI.SimpleMathCppWinRT.ISimpleMath(ActivationFactory<SimpleMath>.ActivateInstance<global::ABI.SimpleMathCppWinRT.ISimpleMath.Vftbl>()))
+        public SimpleMath() : this(new global::ABI.SimpleMathComponent.ISimpleMath(ActivationFactory<SimpleMath>.ActivateInstance<global::ABI.SimpleMathComponent.ISimpleMath.Vftbl>()))
         {
             ComWrappersSupport.RegisterObjectForInterface(this, ThisPtr);
         }
@@ -53,12 +53,12 @@ namespace SimpleMathCppWinRT
         {
             if (thisPtr == IntPtr.Zero) return null;
             var obj = MarshalInspectable.FromAbi(thisPtr);
-            return obj is SimpleMath ? (SimpleMath)obj : new SimpleMath((global::ABI.SimpleMathCppWinRT.ISimpleMath)obj);
+            return obj is SimpleMath ? (SimpleMath)obj : new SimpleMath((global::ABI.SimpleMathComponent.ISimpleMath)obj);
         }
 
-        internal SimpleMath(global::ABI.SimpleMathCppWinRT.ISimpleMath ifc)
+        internal SimpleMath(global::ABI.SimpleMathComponent.ISimpleMath ifc)
         {
-            _defaultLazy = new Lazy<global::ABI.SimpleMathCppWinRT.ISimpleMath>(() => ifc);
+            _defaultLazy = new Lazy<global::ABI.SimpleMathComponent.ISimpleMath>(() => ifc);
             _lazyInterfaces = new Dictionary<Type, object>()
             {
             };
@@ -109,13 +109,13 @@ namespace SimpleMathCppWinRT
     }
 }
 
-namespace ABI.SimpleMathCppWinRT
+namespace ABI.SimpleMathComponent
 {
     [global::WinRT.ObjectReferenceWrapper(nameof(_obj))]
-    [Guid("6FBA6899-B86F-5F62-9CAF-073458D58EEB")]
-    public unsafe class ISimpleMath : global::SimpleMathCppWinRT.ISimpleMath
+    [Guid("C5294299-09C8-5F7F-9FAE-46993031C242")]
+    public unsafe class ISimpleMath : global::SimpleMathComponent.ISimpleMath
     {
-        [Guid("6FBA6899-B86F-5F62-9CAF-073458D58EEB")]
+        [Guid("C5294299-09C8-5F7F-9FAE-46993031C242")]
         public struct Vftbl
         {
             internal IInspectable.Vftbl IInspectableVftbl;
@@ -152,7 +152,7 @@ namespace ABI.SimpleMathCppWinRT
 
                 try
                 {
-                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathCppWinRT.ISimpleMath>(thisPtr).add(firstNumber, secondNumber);
+                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathComponent.ISimpleMath>(thisPtr).add(firstNumber, secondNumber);
                     *result = __result;
 
                 }
@@ -172,7 +172,7 @@ namespace ABI.SimpleMathCppWinRT
 
                 try
                 {
-                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathCppWinRT.ISimpleMath>(thisPtr).subtract(firstNumber, secondNumber);
+                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathComponent.ISimpleMath>(thisPtr).subtract(firstNumber, secondNumber);
                     *result = __result;
 
                 }
@@ -192,7 +192,7 @@ namespace ABI.SimpleMathCppWinRT
 
                 try
                 {
-                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathCppWinRT.ISimpleMath>(thisPtr).multiply(firstNumber, secondNumber);
+                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathComponent.ISimpleMath>(thisPtr).multiply(firstNumber, secondNumber);
                     *result = __result;
 
                 }
@@ -212,7 +212,7 @@ namespace ABI.SimpleMathCppWinRT
 
                 try
                 {
-                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathCppWinRT.ISimpleMath>(thisPtr).divide(firstNumber, secondNumber);
+                    __result = global::WinRT.ComWrappersSupport.FindObject<global::SimpleMathComponent.ISimpleMath>(thisPtr).divide(firstNumber, secondNumber);
                     *result = __result;
 
                 }
@@ -270,16 +270,16 @@ namespace ABI.SimpleMathCppWinRT
     [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
     public struct SimpleMath
     {
-        public static IObjectReference CreateMarshaler(global::SimpleMathCppWinRT.SimpleMath obj) => obj is null ? null : MarshalInspectable.CreateMarshaler(obj).As<ISimpleMath.Vftbl>();
+        public static IObjectReference CreateMarshaler(global::SimpleMathComponent.SimpleMath obj) => obj is null ? null : MarshalInspectable.CreateMarshaler(obj).As<ISimpleMath.Vftbl>();
         public static IntPtr GetAbi(IObjectReference value) => value is null ? IntPtr.Zero : MarshalInterfaceHelper<object>.GetAbi(value);
-        public static global::SimpleMathCppWinRT.SimpleMath FromAbi(IntPtr thisPtr) => global::SimpleMathCppWinRT.SimpleMath.FromAbi(thisPtr);
-        public static IntPtr FromManaged(global::SimpleMathCppWinRT.SimpleMath obj) => obj is null ? IntPtr.Zero : CreateMarshaler(obj).GetRef();
-        public static unsafe MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.MarshalerArray CreateMarshalerArray(global::SimpleMathCppWinRT.SimpleMath[] array) => MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.CreateMarshalerArray(array, (o) => CreateMarshaler(o));
-        public static (int length, IntPtr data) GetAbiArray(object box) => MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.GetAbiArray(box);
-        public static unsafe global::SimpleMathCppWinRT.SimpleMath[] FromAbiArray(object box) => MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.FromAbiArray(box, FromAbi);
-        public static (int length, IntPtr data) FromManagedArray(global::SimpleMathCppWinRT.SimpleMath[] array) => MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.FromManagedArray(array, (o) => FromManaged(o));
+        public static global::SimpleMathComponent.SimpleMath FromAbi(IntPtr thisPtr) => global::SimpleMathComponent.SimpleMath.FromAbi(thisPtr);
+        public static IntPtr FromManaged(global::SimpleMathComponent.SimpleMath obj) => obj is null ? IntPtr.Zero : CreateMarshaler(obj).GetRef();
+        public static unsafe MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.MarshalerArray CreateMarshalerArray(global::SimpleMathComponent.SimpleMath[] array) => MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.CreateMarshalerArray(array, (o) => CreateMarshaler(o));
+        public static (int length, IntPtr data) GetAbiArray(object box) => MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.GetAbiArray(box);
+        public static unsafe global::SimpleMathComponent.SimpleMath[] FromAbiArray(object box) => MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.FromAbiArray(box, FromAbi);
+        public static (int length, IntPtr data) FromManagedArray(global::SimpleMathComponent.SimpleMath[] array) => MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.FromManagedArray(array, (o) => FromManaged(o));
         public static void DisposeMarshaler(IObjectReference value) => MarshalInspectable.DisposeMarshaler(value);
-        public static void DisposeMarshalerArray(MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.MarshalerArray array) => MarshalInterfaceHelper<global::SimpleMathCppWinRT.SimpleMath>.DisposeMarshalerArray(array);
+        public static void DisposeMarshalerArray(MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.MarshalerArray array) => MarshalInterfaceHelper<global::SimpleMathComponent.SimpleMath>.DisposeMarshalerArray(array);
         public static void DisposeAbi(IntPtr abi) => MarshalInspectable.DisposeAbi(abi);
         public static unsafe void DisposeAbiArray(object box) => MarshalInspectable.DisposeAbiArray(box);
     }

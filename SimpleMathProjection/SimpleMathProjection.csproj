@@ -6,9 +6,98 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateTestProjection>true</GenerateTestProjection>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>8305;0618</NoWarn>
+    <GeneratedFilesDir>.\GeneratedFiles\</GeneratedFilesDir>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>0.1.0-prerelease</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="SimpleMathCppWinRT.cs" />
+    <Compile Remove="WinRT.cs" />
+    <Compile Remove="WinRT_Interop.cs" />
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.CsWinRT" Version="0.1.0-prerelease.200811.1" />
-    <PackageReference Include="Microsoft.Windows.SDK.NET" Version="10.0.18362.3-preview" />
+    <PackageReference Include="Microsoft.Windows.SDK.NET" Version="10.0.18362.7-preview" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleMathComponent\SimpleMathComponent.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GeneratedFiles\" />
+  </ItemGroup>
+
+  <!--Identify WinMDs in project references-->
+  <Target Name="RemoveWinMDReferences" BeforeTargets="ResolveReferences" AfterTargets="AfterResolveReferences">
+    <ItemGroup>
+      <!--Track WinMDs-->
+      <ReferenceWinMDs Include="@(ReferencePath)" Condition="'%(ReferencePath.WinMDFile)' == 'true'" />
+      <!--Remove WinMDs from project outputs-->
+      <ReferencePath Remove="@(ReferencePath)" Condition="'%(ReferencePath.WinMDFile)' == 'true'" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="GenerateProjection" Condition="'$(GenerateTestProjection)' == 'true'">
+
+    <!--Project Property for which namespaces to include-->
+    <PropertyGroup>
+      <ProjectionNamespaceToInclude>SimpleMathComponent</ProjectionNamespaceToInclude>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <!--Do not publish projection source project output - this removes all artifacts-->
+      <!--<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="%(ReferenceCopyLocalPaths.Filename) == 'SimpleMathComponent'" />-->
+    </ItemGroup>
+
+    <!--CSWinRT properties-->
+    <PropertyGroup>
+      <CsWinRTVerbosity>high</CsWinRTVerbosity>
+      <CsWinRTResponseFile>$(GeneratedFilesDir)cswinrt_build_projection.rsp</CsWinRTResponseFile>
+      <CsWinRTCommand>$(CsWinRTExe) %40"$(CsWinRTResponseFile)"</CsWinRTCommand>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <CsWinRTParams>
+        -verbose
+        -target $(TargetFramework)
+        -in 10.0.18362.0
+        -in @(ReferenceWinMDs->'"%(FullPath)"', ' ')
+        -out "$(GeneratedFilesDir.TrimEnd('\'))"
+        -include $(ProjectionNamespaceToInclude)
+        -exclude Windows
+      </CsWinRTParams>
+    </PropertyGroup>
+    <MakeDir Directories="$(GeneratedFilesDir)" />
+    <WriteLinesToFile File="$(CsWinRTResponseFile)" Lines="$(CsWinRTParams)" Overwrite="true" WriteOnlyWhenDifferent="true" />
+    <Message Text="$(CsWinRTCommand)" Importance="$(CsWinRTVerbosity)" />
+    <Exec Command="$(CsWinRTCommand)" />
+  </Target>
+
+  <Target Name="BuildProjectionAssembly" DependsOnTargets="GenerateProjection" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Include="$(GeneratedFilesDir)*.cs" Exclude="@(Compile)" />
+      <!--Remove references to projection source winmds to prevent compile conflict warnings-->
+      <ReferencePathWithRefAssemblies Remove="@(ReferencePathWithRefAssemblies)" Condition="%(ReferencePathWithRefAssemblies.Filename) == 'SimpleMathComponent'" />
+      <!--Also remove ReferencePath winmds to prevent error NETSDK1130 false positive-->
+      <ReferencePath Remove="@(ReferencePath)" Condition="%(ReferencePath.Filename) == 'SimpleMathComponent'" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="RemoveProjectionAfterBuild" AfterTargets="AfterBuild">
+    <Message Text="Deleting $(OutDir)SimpleMathComponent.winmd" />
+    <Delete Files="$(OutDir)SimpleMathComponent.winmd" />
+  </Target>
 
 </Project>

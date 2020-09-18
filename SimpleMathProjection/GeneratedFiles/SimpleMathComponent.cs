@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using WinRT;
 using WinRT.Interop;
@@ -14,10 +15,11 @@ using WinRT.Interop;
 
 #pragma warning disable 0169 // warning CS0169: The field '...' is never used
 #pragma warning disable 0649 // warning CS0169: Field '...' is never assigned to
+#pragma warning disable CA2207, CA1063, CA1033, CA1001, CA2213
 
 namespace SimpleMathComponent
 {
-    [global::WinRT.WindowsRuntimeType]
+    [global::WinRT.WindowsRuntimeType("SimpleMathComponent")]
     [Guid("C5294299-09C8-5F7F-9FAE-46993031C242")]
     [Windows.Foundation.Metadata.ExclusiveTo(typeof(SimpleMath))]
     [Windows.Foundation.Metadata.Version(1u)]
@@ -28,7 +30,7 @@ namespace SimpleMathComponent
         double multiply(double firstNumber, double secondNumber);
         double divide(double firstNumber, double secondNumber);
     }
-    [global::WinRT.WindowsRuntimeType]
+    [global::WinRT.WindowsRuntimeType("SimpleMathComponent")]
     [global::WinRT.ProjectedRuntimeClass(nameof(_default))]
     [Windows.Foundation.Metadata.Activatable(1u)]
     [Windows.Foundation.Metadata.MarshalingBehavior(global::Windows.Foundation.Metadata.MarshalingType.Agile)]
@@ -120,13 +122,13 @@ namespace ABI.SimpleMathComponent
         {
             internal IInspectable.Vftbl IInspectableVftbl;
             private delegate*<IntPtr, double, double, double*, int> _add_0;
-            public delegate* stdcall<IntPtr, double, double, out double, int> add_0 { get => (delegate* stdcall<IntPtr, double, double, out double, int>)_add_0; set => _add_0=(delegate*<IntPtr, double, double, double*, int>)value; }
+            public delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int> add_0 { get => (delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int>)_add_0; set => _add_0=(delegate*<IntPtr, double, double, double*, int>)value; }
             private delegate*<IntPtr, double, double, double*, int> _subtract_1;
-            public delegate* stdcall<IntPtr, double, double, out double, int> subtract_1 { get => (delegate* stdcall<IntPtr, double, double, out double, int>)_subtract_1; set => _subtract_1=(delegate*<IntPtr, double, double, double*, int>)value; }
+            public delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int> subtract_1 { get => (delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int>)_subtract_1; set => _subtract_1=(delegate*<IntPtr, double, double, double*, int>)value; }
             private delegate*<IntPtr, double, double, double*, int> _multiply_2;
-            public delegate* stdcall<IntPtr, double, double, out double, int> multiply_2 { get => (delegate* stdcall<IntPtr, double, double, out double, int>)_multiply_2; set => _multiply_2=(delegate*<IntPtr, double, double, double*, int>)value; }
+            public delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int> multiply_2 { get => (delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int>)_multiply_2; set => _multiply_2=(delegate*<IntPtr, double, double, double*, int>)value; }
             private delegate*<IntPtr, double, double, double*, int> _divide_3;
-            public delegate* stdcall<IntPtr, double, double, out double, int> divide_3 { get => (delegate* stdcall<IntPtr, double, double, out double, int>)_divide_3; set => _divide_3=(delegate*<IntPtr, double, double, double*, int>)value; }
+            public delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int> divide_3 { get => (delegate* unmanaged[Stdcall]<IntPtr, double, double, out double, int>)_divide_3; set => _divide_3=(delegate*<IntPtr, double, double, double*, int>)value; }
 
             public static readonly IntPtr AbiToProjectionVftablePtr;
 
@@ -143,7 +145,7 @@ namespace ABI.SimpleMathComponent
                 };
             }
 
-            [UnmanagedCallersOnly]
+            [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvStdcall) })]
             private static unsafe int Do_Abi_add_0(IntPtr thisPtr, double firstNumber, double secondNumber, double* result)
             {
                 double __result = default;
@@ -163,7 +165,7 @@ namespace ABI.SimpleMathComponent
                 }
                 return 0;
             }
-            [UnmanagedCallersOnly]
+            [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvStdcall) })]
             private static unsafe int Do_Abi_subtract_1(IntPtr thisPtr, double firstNumber, double secondNumber, double* result)
             {
                 double __result = default;
@@ -183,7 +185,7 @@ namespace ABI.SimpleMathComponent
                 }
                 return 0;
             }
-            [UnmanagedCallersOnly]
+            [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvStdcall) })]
             private static unsafe int Do_Abi_multiply_2(IntPtr thisPtr, double firstNumber, double secondNumber, double* result)
             {
                 double __result = default;
@@ -203,7 +205,7 @@ namespace ABI.SimpleMathComponent
                 }
                 return 0;
             }
-            [UnmanagedCallersOnly]
+            [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvStdcall) })]
             private static unsafe int Do_Abi_divide_3(IntPtr thisPtr, double firstNumber, double secondNumber, double* result)
             {
                 double __result = default;

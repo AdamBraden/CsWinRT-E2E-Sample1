@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/SimpleMathProjection/nuget/SimpleMathComponent.0.1.2-prerelease.bak

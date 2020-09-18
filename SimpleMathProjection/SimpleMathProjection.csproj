@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Platforms>x64</Platforms>
   </PropertyGroup>
@@ -15,10 +15,10 @@
     <Version>0.1.0-prerelease</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <ItemGroup>
     <Compile Remove="SimpleMathCppWinRT.cs" />
@@ -27,8 +27,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="0.1.0-prerelease.200811.1" />
-    <PackageReference Include="Microsoft.Windows.SDK.NET" Version="10.0.18362.7-preview" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="0.1.0-prerelease.200917.1" />
+    <!--<PackageReference Include="Microsoft.Windows.SDK.NET" Version="10.0.18362.7-preview" />-->
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +39,8 @@
     <Folder Include="GeneratedFiles\" />
   </ItemGroup>
 
+  <!--C#/WinRT Targets and Props-->
+  
   <!--Identify WinMDs in project references-->
   <Target Name="RemoveWinMDReferences" BeforeTargets="ResolveReferences" AfterTargets="AfterResolveReferences">
     <ItemGroup>
@@ -56,22 +58,14 @@
       <ProjectionNamespaceToInclude>SimpleMathComponent</ProjectionNamespaceToInclude>
     </PropertyGroup>
 
-    <ItemGroup>
-      <!--Do not publish projection source project output - this removes all artifacts-->
-      <!--<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="%(ReferenceCopyLocalPaths.Filename) == 'SimpleMathComponent'" />-->
-    </ItemGroup>
-
     <!--CSWinRT properties-->
     <PropertyGroup>
       <CsWinRTVerbosity>high</CsWinRTVerbosity>
       <CsWinRTResponseFile>$(GeneratedFilesDir)cswinrt_build_projection.rsp</CsWinRTResponseFile>
       <CsWinRTCommand>$(CsWinRTExe) %40"$(CsWinRTResponseFile)"</CsWinRTCommand>
-    </PropertyGroup>
-
-    <PropertyGroup>
-      <CsWinRTParams>
+        <!---target $(TargetFramework)-->
+    <CsWinRTParams>
         -verbose
-        -target $(TargetFramework)
         -in 10.0.18362.0
         -in @(ReferenceWinMDs->'"%(FullPath)"', ' ')
         -out "$(GeneratedFilesDir.TrimEnd('\'))"
@@ -85,19 +79,21 @@
     <Exec Command="$(CsWinRTCommand)" />
   </Target>
 
+  <!--Build the projection dll-->
   <Target Name="BuildProjectionAssembly" DependsOnTargets="GenerateProjection" BeforeTargets="CoreCompile">
     <ItemGroup>
       <Compile Include="$(GeneratedFilesDir)*.cs" Exclude="@(Compile)" />
       <!--Remove references to projection source winmds to prevent compile conflict warnings-->
       <ReferencePathWithRefAssemblies Remove="@(ReferencePathWithRefAssemblies)" Condition="%(ReferencePathWithRefAssemblies.Filename) == 'SimpleMathComponent'" />
-      <!--Also remove ReferencePath winmds to prevent error NETSDK1130 false positive-->
+      <!--Also remove ReferencePath winmds to prevent error NETSDK1130-->
       <ReferencePath Remove="@(ReferencePath)" Condition="%(ReferencePath.Filename) == 'SimpleMathComponent'" />
     </ItemGroup>
   </Target>
 
+  <!--Final clean up of any winmds-->
   <Target Name="RemoveProjectionAfterBuild" AfterTargets="AfterBuild">
     <Message Text="Deleting $(OutDir)SimpleMathComponent.winmd" />
     <Delete Files="$(OutDir)SimpleMathComponent.winmd" />
   </Target>
-
+  
 </Project>
